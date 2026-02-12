@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Listagem - CrabWeb</title>
+</head>
+<body>
+    <div class="container-card" style="max-width: 600px;">
+        <h2>Itens e Matchs</h2>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button onclick="carregarItens()" style="flex: 1; font-size: 12px;">Todos Itens</button>
+            <button onclick="carregarMatchs()" style="flex: 1; font-size: 12px; background: #27ae60;">Ver Matchs</button>
+        </div>
+
+        <div id="lista">
+            <p style="color: #888;">Clique em um dos botões acima para carregar.</p>
+        </div>
+
+        <a href="pagina_principal.html">Voltar ao menu</a>
+    </div>
+
+    <script>
+        async function carregarItens(){
+            try{
+                const response = await fetch("http://127.0.0.1:8000/Itens");
+                const dados = await response.json();
+                const lista = document.getElementById("lista");
+                lista.innerHTML = "";
+
+                dados.forEach(item => {
+                    lista.innerHTML += `
+                        <div class="item-card">
+                            <span class="tag-tipo">${item.tipo}</span>
+                            <div style="margin-top:5px;">
+                                <strong>${item.nome}</strong><br>
+                                <small>${item.categoria} | 📍 ${item.local}</small>
+                            </div>
+                        </div>`;
+                });
+            } catch(e){ alert("Erro ao carregar"); }
+        }
+
+        async function carregarMatchs(){
+            try{
+                const response = await fetch("http://127.0.0.1:8000/match");
+                const dados = await response.json();
+                const lista = document.getElementById("lista");
+                lista.innerHTML = "";
+
+                if(dados.length === 0) { lista.innerHTML = "<p>Nenhum match ainda.</p>"; return; }
+
+                dados.forEach(match => {
+                    lista.innerHTML += `
+                        <div class="item-card" style="border-left-color: #27ae60;">
+                            <span class="tag-tipo" style="background:#d4edda; color:#155724;">MATCH ENCONTRADO</span>
+                            <div style="margin-top:5px;">
+                                <p><strong>Perdido:</strong> ${match.item_perdido}</p>
+                                <p><strong>Achado:</strong> ${match.item_achado}</p>
+                            </div>
+                        </div>`;
+                });
+            } catch(e){ alert("Erro ao carregar matchs"); }
+        }
+    </script>
+</body>
+</html>

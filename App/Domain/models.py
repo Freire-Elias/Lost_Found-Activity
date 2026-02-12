@@ -5,11 +5,15 @@ class Usuario(BaseModel):
     telefone: str
     senha: str
 
+class LoginUsuarioSchema(BaseModel):
+    telefone: str
+    senha: str
+
 class Item(BaseModel):
     tipo: str
     nome: str
     descricao: str
-    categria: str
+    categoria: str
     local: str
     data: str
     id_usuario: int

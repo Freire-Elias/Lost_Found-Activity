@@ -1,5 +1,6 @@
+from dis import disco
 
-from database import get_connection
+from App.Infrastructure.database import get_connection
 
 class ItemRepository:
     def inserir(self, tipo, nome, descricao, categoria, local, data, id_usuario):
@@ -42,3 +43,22 @@ class ItemRepository:
         item = cursor.fetchone()
         conn.close()
         return dict(item)
+
+    def buscar_usuario(self, id_item):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+              SELECT id_usuario FROM Itens WHERE id_item = ?""",
+                       (id_item,))
+        item = cursor.fetchone()
+        conn.close()
+        return dict(item)
+
+    def listar_item(self):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""SELECT * FROM Itens""")
+        itens = cursor.fetchall()
+        return [dict(item) for item in itens]

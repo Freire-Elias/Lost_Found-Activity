@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Cadastro - CrabWeb</title>
+</head>
+<body>
+    <div class="container-card">
+        <h2>Criar Conta</h2>
+        <form id="formCadastro" class="formulario">
+            <input type="text" name="nome" placeholder="Nome Completo" required>
+            <input type="tel" name="telefone" placeholder="Telefone" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <a href="login.html">Já tenho conta (Voltar)</a>
+    </div>
+
+    <script>
+        document.getElementById("formCadastro").addEventListener("submit", async function(e){
+            e.preventDefault();
+            const nome = this.nome.value;
+            const telefone = this.telefone.value;
+            const senha = this.senha.value;
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/usuarios", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ nome, telefone, senha })
+                });
+
+                if(response.ok){
+                    alert("Usuário criado com sucesso!");
+                    window.location.href = "login.html";
+                } else {
+                    alert("Erro ao cadastrar");
+                }
+            } catch(error){
+                alert("Erro na conexão");
+            }
+        });
+    </script>
+</body>
+</html>

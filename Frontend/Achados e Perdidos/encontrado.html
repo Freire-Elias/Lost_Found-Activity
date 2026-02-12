@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrei um Item - CrabWeb</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container-card">
+        <h2>Cadastrar Item Encontrado</h2>
+
+        <form id="formEncontrado" class="formulario">
+            <input type="text" name="nome" placeholder="O que você encontrou?" required>
+
+            <textarea name="descricao" placeholder="Descrição detalhada do item" required></textarea>
+
+            <select name="categoria" required>
+                <option value="" disabled selected>Selecione a categoria</option>
+                <option value="documento">Documento</option>
+                <option value="eletronico">Eletrônico</option>
+                <option value="roupa">Roupa</option>
+                <option value="acessorio">Acessório</option>
+                <option value="outros">Outros</option>
+            </select>
+
+            <input type="text" name="local" placeholder="Onde você encontrou?" required>
+
+            <input type="date" name="data" required>
+
+            <button type="submit">Cadastrar Achado</button>
+        </form>
+
+        <p><a href="pagina_principal.html">Voltar ao início</a></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            const form = document.getElementById("formEncontrado");
+
+            form.addEventListener("submit", async function(e){
+                e.preventDefault();
+
+                const usuario_id = localStorage.getItem("usuario_id");
+
+                if(!usuario_id){
+                    alert("Por favor, faça login primeiro.");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const dados = {
+                    tipo: "achado",
+                    nome: this.nome.value,
+                    descricao: this.descricao.value,
+                    categoria: this.categoria.value,
+                    local: this.local.value,
+                    data: this.data.value,
+                    id_usuario: parseInt(usuario_id)
+                };
+
+                try {
+                    const response = await fetch("http://127.0.0.1:8000/Itens", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(dados)
+                    });
+
+                    if(response.ok){
+                        alert("Item cadastrado com sucesso! Obrigado por ajudar.");
+                        window.location.href = "pagina_principal.html";
+                    } else {
+                        alert("Erro ao cadastrar o item. Tente novamente.");
+                    }
+
+                } catch(error){
+                    console.error(error);
+                    alert("Erro na conexão com o servidor.");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -9,3 +9,11 @@ class CriarItem:
         self.match_usecase.executar(item_salvo)
 
         return {"mensagem": "Item criado com sucesso"}
+
+
+class ListarItens:
+    def __init__(self, repository):
+        self.repository = repository
+
+    def executar(self):
+        return self.repository.listar_item()

@@ -6,12 +6,12 @@ class MatchAutomatico:
         self.match_repository = match_repository
 
     def executar(self, item_novo):
-        tipo_oposto = "ACHADO" if item_novo["tipo"] == "PERDIDO" else "PERDIDO"
+        tipo_oposto = "achado" if item_novo["tipo"] == "perdido" else "perdido"
         sugestoes = self.item_repository.buscar_tipo(tipo_oposto)
 
         for sugestoes in sugestoes:
             if MatchService.sao_compativeis(item_novo, sugestoes):
-                if item_novo["tipo"] == "PERDIDO":
+                if item_novo["tipo"] == "perdido":
                     self.match_repository.criar_match(
                         item_novo["id_item"],
                         sugestoes["id_item"]
@@ -21,3 +21,10 @@ class MatchAutomatico:
                         sugestoes["id_item"],
                         sugestoes["id_item"]
                     )
+
+class ListarMatchs:
+    def __init__(self, repository):
+        self.repository = repository
+
+    def executar(self):
+        return self.repository.listar_matchs()

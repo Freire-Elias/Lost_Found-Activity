@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Perdi um Item</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container-card">
+        <h2>Perdi um Item</h2>
+        <form id="formPerdido" class="formulario">
+            <input type="text" name="nome" placeholder="O que você perdeu?" required>
+            <textarea name="descricao" placeholder="Descrição (cor, marca, etc)" required></textarea>
+            <select name="categoria" required>
+                <option value="" disabled selected>Categoria</option>
+                <option value="eletronico">Eletrônico</option>
+                <option value="documento">Documento</option>
+                <option value="roupa">Roupa</option>
+                <option value="outros">Outros</option>
+            </select>
+            <input type="text" name="local" placeholder="Local provável" required>
+            <input type="date" name="data" required>
+            <button type="submit">Cadastrar Perda</button>
+        </form>
+        <a href="pagina_principal.html">Voltar ao início</a>
+    </div>
+
+    <script>
+        document.getElementById("formPerdido").addEventListener("submit", async function(e){
+            e.preventDefault();
+            const usuario_id = localStorage.getItem("usuario_id");
+            if(!usuario_id) { window.location.href = "login.html"; return; }
+
+            const dados = {
+                tipo: "perdido",
+                nome: this.nome.value,
+                descricao: this.descricao.value,
+                categoria: this.categoria.value,
+                local: this.local.value,
+                data: this.data.value,
+                id_usuario: parseInt(usuario_id)
+            };
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/Itens", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(dados)
+                });
+                if(response.ok){
+                    alert("Registrado! Vamos avisar se encontrarmos.");
+                    window.location.href = "pagina_principal.html";
+                }
+            } catch(error) { alert("Erro ao conectar"); }
+        });
+    </script>
+</body>
+</html>

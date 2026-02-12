@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #3cc1e6 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container de Cartão (Login, Cadastro, Forms) */
+.container-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Formulários */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: 0.3s;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3cc1e6;
+    box-shadow: 0 0 8px rgba(60,193,230,0.3);
+}
+
+button {
+    background: #3cc1e6;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #2ba0c0;
+    transform: translateY(-2px);
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #3cc1e6;
+    font-size: 14px;
+    transition: 0.3s;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+a:hover { color: #2ba0c0; text-decoration: underline; }
+
+/* Página Principal */
+.menu-acoes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+.card-botao {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
+}
+
+.card-botao:hover {
+    border-color: #3cc1e6;
+    transform: translateX(5px);
+}
+
+.icone { font-size: 24px; }
+.texto-card { font-weight: 600; color: #333; }
+
+/* Listagem */
+.item-card {
+    background: #fff;
+    border-left: 5px solid #3cc1e6;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tag-tipo {
+    font-size: 10px;
+    background: #e1f5fe;
+    color: #0288d1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Card de Match com Contato */
+.match-contato {
+    background: #e8f5e9;
+    border: 2px solid #27ae60;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.telefone-highlight {
+    display: block;
+    background: #27ae60;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+.aviso-privacidade {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+}
